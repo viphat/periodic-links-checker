@@ -12,7 +12,7 @@ const isBlank = (variable) => {
 const fullUrlConverter = (src) => {
   try {
     return new URL(src).href;
-  } catch {
+  } catch (error) {
     const base_url = new URL(TARGET_URL);
     const { protocol, origin, host } = base_url;
     if (src.includes(host)) {
@@ -120,5 +120,10 @@ const mainProcess = async () => {
 }
 
 exports.handler = async (event) => {
-  return await mainProcess();
+  await mainProcess();
+
+  return {
+    statusCode: 200,
+    body: JSON.stringify({}),
+  }
 };
